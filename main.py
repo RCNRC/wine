@@ -1,10 +1,16 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from datetime import datetime
-import pprint
+import argparse
 from collections import defaultdict
 
 import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+def get_arguments():
+    parser = argparse.ArgumentParser(description="Script creates html file according to template.html.")
+    parser.add_argument('xlsx_file', nargs='?', default="wine.xlsx", help="the data base for wine's sorts.")
+    return parser.parse_args()
 
 
 def years_end(year: int) -> str:
@@ -56,9 +62,8 @@ def get_wines_sotrs_list_from_xlsx(xlsx_file_name, sheet_name="Лист1"):
 
 
 def main():
-    wine_categories = get_wines_sotrs_list_from_xlsx("wine3.xlsx")
-    pp = pprint.PrettyPrinter()
-    pp.pprint(wine_categories)
+    arguments = get_arguments()
+    wine_categories = get_wines_sotrs_list_from_xlsx(arguments.xlsx_file)
     years_together = datetime.now().year - 1920
     jinja2_initialize(years_together, wine_categories)
 
