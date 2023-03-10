@@ -47,7 +47,7 @@ def initialize_jinja2(years_together, wine_categories):
     server.serve_forever()
 
 
-def get_wines_sotrs_list_from_xlsx(xlsx_file_name, sheet_name="Лист1"):
+def get_wines_sorts_list_from_xlsx(xlsx_file_name, sheet_name="Лист1"):
     wine_categories = defaultdict(list)
     excel_data_df = pandas.read_excel(
         io=xlsx_file_name,
@@ -63,7 +63,7 @@ def get_wines_sotrs_list_from_xlsx(xlsx_file_name, sheet_name="Лист1"):
 
 def main():
     arguments = get_arguments()
-    wine_categories = get_wines_sotrs_list_from_xlsx(arguments.xlsx_file)
+    wine_categories = get_wines_sorts_list_from_xlsx(arguments.xlsx_file)
     years_together = datetime.now().year - 1920
     initialize_jinja2(years_together, wine_categories)
 
