@@ -13,7 +13,7 @@ def get_arguments():
     return parser.parse_args()
 
 
-def years_end(year: int) -> str:
+def get_years_ending(year: int) -> str:
     year_double_end = year%100
     if 11<=year_double_end<=20:
         return "лет"
@@ -26,7 +26,7 @@ def years_end(year: int) -> str:
         return "лет"
 
 
-def jinja2_initialize(years_together, wine_categories):
+def initialize_jinja2(years_together, wine_categories):
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -37,7 +37,7 @@ def jinja2_initialize(years_together, wine_categories):
     rendered_page = template.render(
         wine_categories=wine_categories,
         years_together=years_together,
-        years_together_end=years_end(years_together),
+        years_together_end=get_years_ending(years_together),
     )
 
     with open('index.html', 'w', encoding="utf8") as file:
@@ -65,7 +65,7 @@ def main():
     arguments = get_arguments()
     wine_categories = get_wines_sotrs_list_from_xlsx(arguments.xlsx_file)
     years_together = datetime.now().year - 1920
-    jinja2_initialize(years_together, wine_categories)
+    initialize_jinja2(years_together, wine_categories)
 
 
 if __name__ == '__main__':
