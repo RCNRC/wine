@@ -8,19 +8,26 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 def get_arguments():
-    parser = argparse.ArgumentParser(description="Script creates html file according to template.html.")
-    parser.add_argument('xlsx_file', nargs='?', default="wine.xlsx", help="the data base for wine's sorts.")
+    parser = argparse.ArgumentParser(
+        description="Script creates html file according to template.html."
+    )
+    parser.add_argument(
+        'xlsx_file',
+        nargs='?',
+        default="wine.xlsx",
+        help="the data base for wine's sorts."
+    )
     return parser.parse_args()
 
 
 def get_years_ending(year: int) -> str:
-    year_double_end = year%100
-    if 11<=year_double_end<=20:
+    year_double_end = year % 100
+    if 11 <= year_double_end <= 20:
         return "лет"
-    year_end = year%10
+    year_end = year % 10
     if year_end == 1:
         return "год"
-    elif 1<year_end<5:
+    elif 1 < year_end < 5:
         return "года"
     else:
         return "лет"
